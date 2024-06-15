@@ -1,24 +1,22 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import {FaTrash, FaEdit} from "react-icons/fa"
+import TodoListApi from "../API-INTERACTIONS/table"
 
 const Table = () => {
     const [todoData, setTodoData] = useState([])
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/todo').then(
-        response => {
-            setTodoData(response.data)
-        }
-    ).catch(
-        (error) => {
-            console.log('error')
-        }
-    )
+       const fetchTodos = async() => {
+            const result = await TodoListApi()
+            setTodoData(result.data)
+       } 
+
+       fetchTodos()
     }
     ,[])
 
-    console.log(todoData)
+    // console.log(todoData)
     
 
     return (
