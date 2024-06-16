@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import {FaTrash, FaEdit} from "react-icons/fa"
+import {FaTrash, FaEdit, FaCheckSquare, FaSquare} from "react-icons/fa"
+import {MdCheckBox, MdCheckBoxOutlineBlank} from "react-icons/md"
 import TodoListApi from "../API-INTERACTIONS/table"
 
 const Table = () => {
@@ -32,14 +33,15 @@ const Table = () => {
                 </thead>
 
                 <tbody>
-                    {todoData && todoData.map(todo => (
-                            
+                    {todoData && todoData.map(todo => {
+                            const date = todo.created.toLocaleString().split('T')[0];
 
 
+                            return ( 
                             <tr key={todo.id}>
-                                <td>{todo.completed.toString()}</td>
+                                {todo.completed ? <td><MdCheckBox/></td> : <td><MdCheckBoxOutlineBlank/></td> }
                                 <td>{todo.body}</td>
-                                <td>{todo.created}</td>
+                                <td>{date}</td>
                                 <td >
                                     <div className="flex gap-2 w-14 h-4 justify-center">
                                         <FaEdit/> 
@@ -50,7 +52,8 @@ const Table = () => {
                                 
                             </tr>
                         
-                        ))
+                        )}
+                    )
                     }
                 </tbody>
                 
