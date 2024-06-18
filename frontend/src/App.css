@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.todo-list-table{
+    @apply w-full mt-8 
+
+}
+
+.todo-list-table thead tr{
+    @apply border-b-2 border-black
+    
+}
+
+.todo-list-table th{
+    @apply font-semibold opacity-60 text-gray-600 text-left uppercase text-sm
+}
+
+
+.todo-list-table tbody tr{
+    /* @apply  */
+    
+}
+
+.todo-list-table tbody td{
+    @apply p-3 pl-0 border-b-2  text-black cursor-pointer text-left
+}
