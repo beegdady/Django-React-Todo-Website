@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default async function TodoListApi(){
+const TodoListApi = async () => {
     let data = null;
     let error = null;
     // const url = process.env.REACT_APP_API_BASE_URL ;
@@ -20,3 +20,4 @@ export default async function TodoListApi(){
     
     return {data, error}
 }
+export default TodoListApi;

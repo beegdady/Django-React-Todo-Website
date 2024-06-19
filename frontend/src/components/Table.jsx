@@ -2,26 +2,19 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import {FaTrash, FaEdit, FaCheckSquare, FaSquare} from "react-icons/fa"
 import {MdCheckBox, MdCheckBoxOutlineBlank} from "react-icons/md"
-import TodoListApi from "../API-INTERACTIONS/table"
 
-const Table = () => {
-    const [todoData, setTodoData] = useState([])
 
-    useEffect(() => {
-       const fetchTodos = async() => {
-            const result = await TodoListApi()
-            setTodoData(result.data)
-       } 
-
-       fetchTodos()
-    }
-    ,[])
-
+const Table = ({todoData,currentTodo, setCurrentTodo}) => {
     
+    const EditTodo = (todo) => {
+        setCurrentTodo(todo)
+    }
+
+    console.log(currentTodo)
     
 
     return (
-        <div>
+        <div className="h-30 overflow-y-auto">
             <table className="todo-list-table">
                 <thead >
                     <tr>
@@ -45,7 +38,7 @@ const Table = () => {
                                     <td>{date}</td>
                                     <td >
                                         <div className="flex gap-2 w-14 h-4 justify-center">
-                                            <FaEdit/> 
+                                            <FaEdit onClick={() => {EditTodo(todo)}}/> 
                                             <FaTrash/>
                                         </div>
                                         

@@ -1,39 +1,50 @@
 import { Form, FormItem } from './ui/form';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
 
-const TodoForm = () => {
-    const [newTodo, setNewTodo] = useState({
+const TodoForm = ({currentTodo}) => {
+    const [TodoItem, setTodoItem] = useState({
         'body' : ''
     })
 
+    useEffect(() => {
+        if (currentTodo){
+            setTodoItem(currentTodo)
+        }
+    }, [currentTodo])
+
+    // console.log(TodoItem)
+    console.log('currentTodo',currentTodo)
+
 
     const handletodoChange = (e) => {
-        setNewTodo(prev => ({
+        setTodoItem(prev => ({
             ...prev,
             'body' : e.target.value
         }))
     }
 
-    console.log('todo', newTodo)
+   
 
     const postTodo = async() => {
-
         const data = {
-            'body' : newTodo.body,
-            'completed' : false,
-            'created' : new Date().toISOString()
+           ...TodoItem
         };
 
+
+        const url = currentTodo ?'http://127.0.0.1:8000/api/todo/${currentTodo.id}/' : 'http://127.0.0.1:8000/api/todo/';
+        const method = currentTodo ? 'put' : 'post' ;
+
+        
         
 
         try{
-            await axios.post('http://127.0.0.1:8000/api/todo/', data);
-            setNewTodo({
+            await axios[method](url, data);
+            setTodoItem({
                 'body' : ''
             })
         }catch(error){
@@ -49,9 +60,13 @@ const TodoForm = () => {
                 <FormItem>
                     <div className='flex max-w-full items-center gap-2 mt-6 lg:w-1/2'>
                         <Input className ='border-black bg-white' 
-                            value ={newTodo.body} onChange = {handletodoChange}
+                            value ={TodoItem.body} onChange = {handletodoChange}
                         />
-                        <Button onClick =  {() => postTodo()}>Add Todo</Button>
+
+                        {currentTodo ? <Button onClick =  {() => postTodo()}>Update Todo</Button> :
+                                        <Button onClick =  {() => postTodo()}>Add Todo</Button>
+                        }
+                       
                     </div>
                     
                 </FormItem>
