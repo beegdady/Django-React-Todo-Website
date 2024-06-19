@@ -17,7 +17,7 @@ const Table = () => {
     }
     ,[])
 
-    // console.log(todoData)
+    
     
 
     return (
@@ -33,28 +33,28 @@ const Table = () => {
                 </thead>
 
                 <tbody>
+
                     {todoData && todoData.map(todo => {
-                            const date = todo.created.toLocaleString().split('T')[0];
+                            const date = new Date(todo.created).toLocaleDateString();
 
 
                             return ( 
-                            <tr key={todo.id}>
-                                {todo.completed ? <td><MdCheckBox/></td> : <td><MdCheckBoxOutlineBlank/></td> }
-                                <td>{todo.body}</td>
-                                <td>{date}</td>
-                                <td >
-                                    <div className="flex gap-2 w-14 h-4 justify-center">
-                                        <FaEdit/> 
-                                        <FaTrash/>
-                                    </div>
+                                <tr key={todo.id}>
+                                    {todo.completed ? <td><MdCheckBox/></td> : <td><MdCheckBoxOutlineBlank/></td> }
+                                    <td>{todo.body}</td>
+                                    <td>{date}</td>
+                                    <td >
+                                        <div className="flex gap-2 w-14 h-4 justify-center">
+                                            <FaEdit/> 
+                                            <FaTrash/>
+                                        </div>
+                                        
+                                    </td>
                                     
-                                </td>
-                                
-                            </tr>
+                                </tr>
                         
                         )}
-                    )
-                    }
+                    )}
                 </tbody>
                 
             </table>
