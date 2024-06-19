@@ -9,12 +9,17 @@ import axios from 'axios';
 const TodoForm = ({currentTodo}) => {
     const [TodoItem, setTodoItem] = useState({
         'body' : ''
-    })
+    });
 
     useEffect(() => {
         if (currentTodo){
             setTodoItem(currentTodo)
+        }else{
+            setTodoItem({
+                'body' : ''
+            })
         }
+
     }, [currentTodo])
 
     // console.log(TodoItem)
@@ -60,12 +65,13 @@ const TodoForm = ({currentTodo}) => {
                 <FormItem>
                     <div className='flex max-w-full items-center gap-2 mt-6 lg:w-1/2'>
                         <Input className ='border-black bg-white' 
-                            value ={TodoItem.body} onChange = {handletodoChange}
+                            value ={TodoItem?.body || ''} onChange = {handletodoChange}
                         />
 
-                        {currentTodo ? <Button onClick =  {() => postTodo()}>Update Todo</Button> :
-                                        <Button onClick =  {() => postTodo()}>Add Todo</Button>
-                        }
+                    <Button onClick =  {() => postTodo()}>{
+                        currentTodo && currentTodo.id ? 'Update Todo' : 'Add Todo'
+                    }
+                    </Button>
                        
                     </div>
                     
