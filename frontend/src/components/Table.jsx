@@ -1,6 +1,5 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
-import {FaTrash, FaEdit, FaCheckSquare, FaSquare} from "react-icons/fa"
+import {FaTrash, FaEdit } from "react-icons/fa"
 import {MdCheckBox, MdCheckBoxOutlineBlank} from "react-icons/md"
 
 
@@ -8,7 +7,14 @@ const Table = ({todoData,currentTodo, setCurrentTodo}) => {
     
     const EditTodo = (todo) => {
         setCurrentTodo(todo)
+
     }
+
+    const DeleteTodo = async(todoId) => {
+        await axios.delete(`http://127.0.0.1:8000/api/todo/${todoId}/`);
+        window.location.reload(true)
+    }
+
 
     console.log(currentTodo)
     
@@ -39,7 +45,7 @@ const Table = ({todoData,currentTodo, setCurrentTodo}) => {
                                     <td >
                                         <div className="flex gap-2 w-14 h-4 justify-center">
                                             <FaEdit onClick={() => {EditTodo(todo)}}/> 
-                                            <FaTrash/>
+                                            <FaTrash onClick={() => DeleteTodo(todo.id)}/>
                                         </div>
                                         
                                     </td>

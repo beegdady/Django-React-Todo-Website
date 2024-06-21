@@ -6,7 +6,9 @@ import axios from 'axios';
 
 
 
-const TodoForm = ({currentTodo}) => {
+
+
+const TodoForm = ({currentTodo , setCurrentTodo}) => {
     const [TodoItem, setTodoItem] = useState({
         'body' : ''
     });
@@ -24,8 +26,7 @@ const TodoForm = ({currentTodo}) => {
 
     // console.log(TodoItem)
     console.log('currentTodo',currentTodo)
-
-
+    
     const handletodoChange = (e) => {
         setTodoItem(prev => ({
             ...prev,
@@ -41,7 +42,7 @@ const TodoForm = ({currentTodo}) => {
         };
 
 
-        const url = currentTodo ?'http://127.0.0.1:8000/api/todo/${currentTodo.id}/' : 'http://127.0.0.1:8000/api/todo/';
+        const url = currentTodo ?`http://127.0.0.1:8000/api/todo/${currentTodo.id}/` : 'http://127.0.0.1:8000/api/todo/';
         const method = currentTodo ? 'put' : 'post' ;
 
         
@@ -51,11 +52,17 @@ const TodoForm = ({currentTodo}) => {
             await axios[method](url, data);
             setTodoItem({
                 'body' : ''
-            })
+            });
+            
         }catch(error){
             console.log(error)
         }
+
+        window.location.reload(true)
+
     }
+
+    
 
 
 
